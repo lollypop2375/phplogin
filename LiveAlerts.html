@@ -1,0 +1,69 @@
+<?php
+session_start();
+if (! isset($_SESSION['loggedin'])){
+    //header ('Location: Crime.html');
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Favicon" type="icon/png" href="./Icons/icons8-police-16.png">
+    <link rel="Stylesheet" href="./Style.css?<?php echo time(); ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- insert font link -->
+</head>
+<body>
+<header>
+<!-- this will be top nav tabs -->
+<div class="topnav" id="myTopnav">
+    <a href="./IndexPolice.html">Login</a>
+    <a href="./Crime.html">Crime</a>
+    <a href="./MajorIncidents.html">Major Incidents</a>
+    <a class="active" href="/LiveAlerts.html">Live Alerts</a>
+  </div>
+<!-- maybe some icons -->
+<!-- possible search depending on page -->
+</header>
+<div class="Alerts">
+<img src="./Icons/icons8-alert-100.png" alt="Warning Bell">
+
+ <h3> Live Alerts </h3>
+
+   <!-- * Show Current Live Alerts Here.... Push Notifications -->
+
+
+
+</div>
+<div class="Nav_Icons">
+    <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-back-100.png" style="width:50px">
+     </a>
+     
+     <a href="./Logout.php">
+        <img src="./Icons/icons8-logout-100.png" style="width:50px">
+       </a>
+     <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-forward-100.png" style="width:50px">
+     </a>
+     <!-- <a href="./Logout.php"> -->
+      <!-- <img src="./LOGO/icons8-logout-100.png" style="width:50px"> -->
+     <!-- </a> -->
+      <!-- <img src="./LOGO/icons8-forward-100.png" style="width:50px"> -->
+   </div>
+
+<footer>
+
+</footer>
+
+</body>
+
+</html>

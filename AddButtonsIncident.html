@@ -1,0 +1,83 @@
+<?php
+session_start();
+if (! isset($_SESSION['loggedin'])){
+    //header ('Location: Crime.html');
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Favicon" type="icon/png" href="./Icons/icons8-police-16.png">
+    <link rel="Stylesheet" href="./Style.css?<?php echo time(); ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- insert font link -->
+</head>
+<body>
+<header>
+<!-- this will be top nav tabs -->
+<div class="topnav" id="myTopnav">
+    <a href="./IndexPolice.html">Login</a>
+    <a href="./Crime.html">Crime</a>
+    <a class="active" href="./MajorIncidents.html">Major Incidents</a>
+    <a href="./LiveAlerts.html">Live Alerts</a>
+  </div>
+<!-- maybe some icons -->
+<!-- possible search depending on page -->
+</header>
+<div class="Main_area">
+    <img src="./Icons/icons8-incident-128.png" alt="Incident Icon" id="ButtonPage">
+    <!-- insert form here -->
+    <div class="ButtonWrap">
+      <a href="./MajorIncidents.html">
+    <button class="btn">New Incident Report</button>
+      </a>
+    <br>
+    <a href="./AddIncWitt.html">
+    <button class="btn">Add Witness Report</button>
+    </a>
+    <br>
+    <a href="./AddIncSus.html">
+    <button class="btn">Add Suspect Report</button>
+    </a>
+    <br>
+    <a href="./AddIncVic.html">
+    <button class="btn">Add Victim Report</button>
+    </a>
+    <br>
+    <a href="./AddIncOff.html">
+    <button class="btn">Add Officer Report</button>
+    </a>
+    <br>
+  </div>
+
+
+</div>
+<div class="Nav_Icons">
+    <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-back-100.png" style="width:50px">
+     </a>
+     
+     <a href="./Logout.php">
+        <img src="./Icons/icons8-logout-100.png" style="width:50px">
+       </a>
+     <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-forward-100.png" style="width:50px">
+     </a>
+   
+   </div>
+
+<footer>
+
+</footer>
+
+</body>
+</html>

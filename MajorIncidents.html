@@ -1,0 +1,211 @@
+<?php
+session_start();
+if (! isset($_SESSION['loggedin'])){
+    //header ('Location: Crime.html');
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Favicon" type="icon/png" href="./Icons/icons8-police-16.png">
+    <link rel="Stylesheet" href="./Style.css?<?php echo time(); ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- insert font link -->
+</head>
+<body>
+<header>
+<!-- this will be top nav tabs -->
+<div class="topnav" id="myTopnav">
+    <a href="./IndexPolice.html">Login</a>
+    <a href="./Crime.html">Crime</a>
+    <a class="active" href="./MajorIncidents.html">Major Incidents</a>
+    <a href="./LiveAlerts.html">Live Alerts</a>
+  </div>
+<!-- maybe some icons -->
+<!-- possible search depending on page -->
+</header>
+<div class="Main_area">
+    <img src="./Icons/icons8-incident-128.png" alt="Incident Icon">
+    <br>
+    <!-- insert form here -->
+    <form action="UploadIncident.php" id="form" method="POST" enctype="multipart/form-data">
+      <div class="Select">
+        <label for="catagory">Incident Catagory:</label>
+        <select name="catagory" id="Catagory">
+          <option value="Operational">Operational</option>
+          <option value="Non-Operational">Non-Operational</option>
+        </select>
+       
+        <label for="Type">Incident Type:</label>
+        <select name="Type" id="Type" class="form-control" onblur="gatherDataAndOutput()">
+          <option value="Select">Select Option:</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label for="IncidentNumber">Incident Number:</label>
+        <input type="hidden" name="IncidentNumber" id="IncidentNumber">
+        <input autofocus="" id="IncidentNumber2"  class="form-control" disabled onblur="gatherDataAndOutput()"/>
+        <label for="Reporttime">Time of Report (date and time):</label>
+        <input type="datetime-local" id="DateTime" name="DateTime" class="form-control" onblur="gatherDataAndOutput()"/>
+        <br> <br>
+        </div>
+        
+        <label for="Caller">Originating Telephone:</label>
+        <input type="text" id="Telephone" name="IncidentTelephone">
+        <label for="ReporteeName">Reportee First Name:</label>
+        <input type="text" id="ReporteeFirstname" name="ReporteeFirstname" placeholder="Use ANON if no name">
+        <label for="ReporteeNameS">Reportee Surname:</label>
+        <input type="text" id="ReporteeSurname" name="ReporteeSurname" placeholder="Use ANON if no name">
+        <br><br>
+
+        <div class="form-group">
+        <label for="Location">Location:</label>
+        <input type="text" id="IncidentLocation" name="IncidentLocation" class="form-control" onblur="gatherDataAndOutput()"/>
+        <label for="IncidentPostcode">Postcode:</label>
+        <input type="text" id="IncidentPostcode" name="IncidentPostcode" placeholder="If none given, enter N/A" class="form-control" onblur="gatherDataAndOutput()"/><br><br>
+        </div>
+
+
+        <textarea id="Statement" name="Statement" rows="10" cols="150"></textarea>
+        <div id="Checkbox">
+        <input type="checkbox" id="LiveAlert" name="LiveAlert">
+        <p id="Live_alertcheck">Issue Live Alert?</p>
+        </div>
+        <div id="LiveAlertType" name="LiveAlertType">
+        <label for="LiveAlertType">Live Alert Type</label>
+        <select name="Level" id="level">
+          <option value="Red">Red</option>
+          <option value="Amber">Amber</option>
+          <option value="Green">Green</option>
+        </select>
+      </div>
+      
+       
+    <div id="Log">
+        <!-- link to account page when logged in -->
+       
+        
+        <a href="./AddButtons.html">
+        <input type="submit" id="Submit-Login" value="Submit">
+        </a>
+        </div>
+        <br><br>
+   </form>
+
+
+
+</div>
+<div class="Nav_Icons">
+    <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-back-100.png" style="width:50px">
+     </a>
+     
+     <a href="./Logout.php">
+        <img src="./Icons/icons8-logout-100.png" style="width:50px">
+       </a>
+     <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-forward-100.png" style="width:50px">
+     </a>
+   
+   </div>
+
+<footer>
+
+</footer>
+
+</body>
+<script>
+  var IncidentCatagoryList = document.getElementById('Catagory')
+  var IncidentTypeList = document.getElementById('Type')
+
+  function getIncidentTypes(Catagory){
+    fetch("FetchIncident.php",{
+      method:"POST",
+      headers: {
+        "content-type":"application/x-www-form-urlencoded"
+      },
+      body:"IncidentCatagory=" + Catagory
+    })
+    .then((response)=> response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      clearOptions(IncidentTypeList);
+      for (const t of responseData){
+        populateIncidentType(t);
+      }
+    })
+  }
+
+    IncidentCatagoryList.addEventListener('change',(event) =>{
+      console.log(event.target.value)
+      getIncidentTypes(event.target.value)
+    })
+
+    function populateIncidentType(Type){
+      var SelectionOption = document.createElement("option");
+      SelectionOption.value = Type['IncidentType'];
+      SelectionOption.innerText = Type['IncidentType'];
+      IncidentTypeList.appendChild(SelectionOption);
+    }
+
+    function clearOptions(selection){
+      selection.innerHTML = "";
+    }
+    window.addEventListener("load", (event) => {
+      getIncidentTypes("Operational");
+    })
+  
+
+
+
+  
+</script>
+<script>
+  //functions to generate Incident reference number
+  function getCatagory(Catagory){
+    return (Catagory[0] + Catagory[1] + Catagory[2])
+    // .toUpperCase()
+  }
+  function getType(Type){
+    return (Type[0] + Type[1] + Type[2])
+    // .toUpperCase()
+  }
+  function getTime(DateTime){
+    return (DateTime[2] + DateTime[3] + DateTime[6] + DateTime[7])
+  }
+  function getLocation(IncidentLocation){
+    return (IncidentLocation[0] + IncidentLocation[1] + IncidentLocation[2])
+    // .toUpperCase()
+  }
+  function getPostCode(IncidentPostcode){
+    return (IncidentPostcode[0] + IncidentPostcode[1] + IncidentPostcode[2])
+    // .toUpperCase()
+  }
+  function makeIncidentRefNumber(Catagory,Type,DateTime,IncidentLocation,IncidentPostcode){
+    return getCatagory(Catagory) + getType(Type) + getTime(DateTime) + getLocation(IncidentLocation) + getPostCode(IncidentPostcode)
+  }
+  var sequenceNumber = 1
+  function gatherDataAndOutput(){
+    var Catagory = document.getElementById("Catagory").value
+    var Type = document.getElementById("Type").value
+    var DateTime = document.getElementById("DateTime").value
+    var IncidentLocation = document.getElementById("IncidentLocation").value
+    var IncidentPostcode = document.getElementById("IncidentPostcode").value
+
+    var outputElement = document.getElementById("IncidentNumber")
+    var outputElement2 = document.getElementById("IncidentNumber2")
+    outputElement.value = makeIncidentRefNumber(Catagory,Type,DateTime,IncidentLocation,IncidentPostcode)
+    outputElement2.value = makeIncidentRefNumber(Catagory,Type,DateTime,IncidentLocation,IncidentPostcode)
+  }
+</script>
+</html>

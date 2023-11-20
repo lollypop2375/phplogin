@@ -1,0 +1,201 @@
+*{
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    
+ }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #0A2647;
+  }
+  
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #144272;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #2C74B3;
+    color: white;
+  }
+  
+  .topnav .icon {
+    display: none;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {display: none;}
+    .topnav a.icon {
+      float: right;
+      display: block;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+    .topnav.responsive .icon {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+  }
+  /* *Form area for login page */
+/* img {
+  padding-bottom: 54px;
+} */
+  .Main_area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     padding-top: 34px; 
+     padding-bottom: 15px;
+  }
+  .Select {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  #IconAddPage{
+    padding-top: 80px;
+    padding-bottom: 76px;
+    margin-left: 716px;
+  }
+  .Main_areaAdd{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  .IconReg{
+    margin-top: 15px;
+  }
+#Log{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+  /* *Also styles Register Username and Password Fields */
+  label#Username{
+    font-size: large;
+    padding-left: 53px;
+    padding-top: 11px;
+  }
+  #Password_Label {
+    font-size: large;
+    padding-left: 53px;
+  }
+  input#Username {
+    font-size: large;
+    padding-left: 4px;
+  }
+  #Password_Input {
+    font-size: large;
+    padding-left: 4px;
+  }
+  input[type=submit] {
+    padding-top: 11px;
+    padding-left: 70px;
+    background-color: #2C74B3;
+    color: #f2f2f2;
+    padding: 16px 32px;
+    margin-left: 44px;
+    font-size: medium;
+  }
+  .Nav_Icons {
+    display: flex;
+    justify-content: space-around;
+    /* padding-top: 50px; */
+  }
+  a {
+    text-decoration: none;
+  }
+/* *Crime Form Styling */
+#Checkbox{
+  display: flex;
+}
+#Live_alertcheck{
+  margin-left: 25px;
+}
+#LiveAlertType{
+  display: flex;
+}
+#level{
+  margin-left: 25px;
+}
+
+/* Add Report Buttons */
+#ButtonPage{
+  margin-top: 50px;
+}
+.btn {
+  border: none; 
+  color: white; 
+  padding: 14px 28px; 
+  cursor: pointer; 
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #144272;
+}
+.btn:hover {background-color: #2C74B3;}
+.ButtonWrap{
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+
+
+/* Add officer Report Styling */
+#H2Officer{
+  margin-left: 411px;
+  margin-bottom: 15px;
+}
+#AddOfficerSubmit{
+  margin-left: 411px;
+}
+/* Add Witness Report */
+#H2Witness{
+  margin-left: 411px;
+  margin-bottom: 15px;
+}
+#AddWitnessSubmit{
+  margin-left: 411px;
+}
+#H2Victim{
+  margin-left: 411px;
+  margin-bottom: 15px;
+}
+#AddVictimSubmit{
+  margin-left: 411px;
+}
+#H2Suspect{
+  margin-left: 411px;
+  margin-bottom: 15px;
+}
+#AddSuspectSubmit{
+  margin-left: 411px;
+}
+.Alerts{
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+}

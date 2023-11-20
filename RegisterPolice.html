@@ -1,0 +1,54 @@
+<?php
+session_start();
+if(! isset($_SESSION['loggedin'])){
+  // header ("Location: IndexPolice.html");
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Icon for the browser tab -->
+    <link rel="icon" type="icon/png" href="./LOGO/icons8-home-page-16.png">
+    <link rel="stylesheet" href="./Style.css?<?php echo time(); ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+  
+    <div class="Main_area">
+    <img src="./Icons/icons8-account-100.png" class="IconReg">
+    <br>
+    <form action="Register.php" method="post" autocomplete="off" id="Registerform">
+      <!-- Labels and input for sign up form -->
+     
+      <label for="Username" id="Username">Username:</label><br>
+      <input type="text" id="Username" name="Username" placeholder="Username..."><br>
+      <label for="Password" id="Password_Label">Password:</label><br>
+      <input type="Password" id="Password_Input" name="Password" placeholder="Password..."><br>
+      <br><br>
+      <div id="Login">
+        <!-- link to account page when signed up -->
+       <a href="./IndexPolice.html">
+       <input type="submit" id="Submit-Login" value="Submit">
+       </a>
+      </div>
+      <br><br>
+    </div>
+    </form>
+   
+
+    
+ <footer>
+
+  </footer>
+ 
+</body>
+</html>

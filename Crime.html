@@ -1,0 +1,231 @@
+<?php
+session_start();
+if (! isset($_SESSION['loggedin'])){
+    //header ('Location: Crime.html');
+}
+if (isset($_POST ['CrimeNumber'])){
+  $_SESSION['CrimeNumber'] = $_POST['CrimeNumber'];
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Favicon" type="icon/png" href="./Icons/icons8-police-16.png">
+    <link rel="Stylesheet" href="./Style.css?<?php echo time(); ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- insert font link -->
+</head>
+<body>
+<header>
+<!-- this will be top nav tabs -->
+<div class="topnav" id="myTopnav">
+    <a href="./IndexPolice.html">Login</a>
+    <a class="active" href="./Crime.html">Crime</a>
+    <a href="./MajorIncidents.html">Major Incidents</a>
+    <a href="./LiveAlerts.html">Live Alerts</a>
+  </div>
+<!-- maybe some icons -->
+<!-- possible search depending on page -->
+</header>
+<div class="Main_area">
+    <img src="./Icons/icons8-handcuffs-100.png" alt="Police Badge Icon">
+    <br><br>
+    <!-- insert form here -->
+    <form action="/action_page.php">
+        <label for="catagory">Crime Catagory:</label>
+        <select name="Catagory" id="Catagory" class="form-control" onblur="gatherDataAndOutput()">
+          <option value="Arson">Arson</option>
+          <option value="Public Order">Public Order</option>
+          <option value="Theft">Theft</option>
+          <option value="Drugs">Drugs</option>
+          <option value="Driving">Driving</option>
+          <option  value="Domestic Abuse">Domestic Abuse</option>
+          <option  value="Sexual">Sexual</option>
+          <option  value="Hate Crime">Hate Crime</option>
+          <option  value="Proceeds of Crime">Proceeds of Crime</option>
+          <option  value="Violent Crime">Violent Crime</option>
+          <option  value="Domestic Abuse">Domestic Abuse</option>
+          <option  value="Cyber">Cyber</option>
+        </select>
+      
+        <label for="Type">Crime Type:</label>
+        <select name="Type" id="Type" class="form-control" onblur="gatherDataAndOutput()">
+          <option value="Select">Select Option:</option>
+        </select>
+        <br><br>
+          <div class="form-group">
+          <label for="CrimeReferenceNumber">Crime Reference Number:</label>
+          <input autofocus="" id="CrimeReference" name="CrimeReference" type="text" class="form-control" disabled onblur="gatherDataAndOutput()"/>
+          <label for="Reporttime">Time of Report (date and time):</label>
+          <input type="datetime-local" id="ReportTime" name="ReportTime" class="form-control" onblur="gatherDataAndOutput()"/>
+          <br> <br>
+          </div>
+          <div class="form-group">
+          <label for="Location">Location:</label>
+          <input type="text" id="Location" name="Location" class="form-control" onblur="gatherDataAndOutput()"/>
+          <label for="CrimePostcode">Postcode:</label>
+          <input type="text" id="PostCode" name="PostCode" placeholder="If none given, enter N/A" class="form-control" onblur="gatherDataAndOutput()"/><br><br>
+          </div>
+          <label for="Caller">Originating Telephone:</label>
+          <input type="text" id="Orgin-tel" name="OriginTel">
+          <label for="ReporteeName">Reportee Name:</label>
+          <input type="text" id="ReporteeName" name="ReportName" placeholder="Use ANON if no name" maxlength="50">
+          <label for="ReporteeSurname">Reportee Surname:</label>
+          <input type="text" id="ReporteeSurname" name="ReporteeSurname" placeholder="Use ANON if no name">
+          <br><br>
+
+          <textarea id="Textarea" name="Report_Entry" rows="10" cols="150"></textarea>
+          <div id="Checkbox">
+          <input type="checkbox" id="LiveAlert" name="LiveAlert" onclick="myFunction()">
+          <p id="Live_alertcheck">Issue Live Alert?</p>
+          </div>
+          <div id="LiveAlertType" name="LiveType">
+          <label for="LiveAlertType">Live Alert Type</label>
+          <select name="Level" id="level">
+            <option value="Red">Red</option>
+            <option value="Amber">Amber</option>
+            <option value="Green">Green</option>
+          </select>
+        </div>
+        
+       
+     
+      <div id="Log">
+        <?php if(isset($_GET['pageReturn'])): ?>
+        <input type="hidden" name="pageReturn" value="<?=$_GET['pageReturn']?>">
+        <<?php endif ?>
+         <a href="./AddButtons.html">
+          <input type="submit" id="Submit-Login" value="Submit">
+       </a>
+       </div>
+       <br><br>
+  
+   </form>
+
+
+
+</div>
+<div class="Nav_Icons">
+    <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-back-100.png" style="width:50px">
+     </a>
+     
+     <a href="./Logout.php">
+        <img src="./Icons/icons8-logout-100.png" style="width:50px">
+       </a>
+     <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-forward-100.png" style="width:50px">
+     </a>
+   
+   </div> 
+
+<footer>
+
+</footer>
+
+</body>
+<script>
+  var CrimeCatagoryList = document.getElementById('Catagory')
+  var CrimeTypeList = document.getElementById('Type')
+
+  function getCrimeTypes(Catagory){
+    fetch("FetchCrime.php",{
+      method:"POST",
+      headers: {
+        "Content-Type":"application/x-www-form-urlencoded"
+      }, 
+      body:"CrimeCatagory=" + Catagory 
+    })
+    .then((response)=> response.json())
+    .then((responseData) => {
+      console.log(responseData);
+      clearOptions(CrimeTypeList);
+      for (const t of responseData){
+        PopulateCrimeType(t);
+      }
+    })
+
+  }
+
+  CrimeCatagoryList.addEventListener('change',(event) =>{
+    console.log(event.target.value)
+    getCrimeTypes(event.target.value)
+  })
+function PopulateCrimeType(Type){
+  var SelectionOption = document.createElement("option");
+  SelectionOption.value = Type['CrimeType'];
+  SelectionOption.innerText = Type['CrimeType'];
+   CrimeTypeList.appendChild(SelectionOption);
+}
+function clearOptions(selection){
+  selection.innerHTML ="";
+}
+window.addEventListener("load", (event) => {
+  getCrimeTypes("Arson");
+})
+
+
+function getContentInPDF() {
+         // access form elements in this case the Report_Entry
+         var name = document.getElementById('Textarea').value;
+    
+         // create a single html element by adding form data
+         var element = document.createElement('div');
+         element.innerHTML = '<h1>Form Data</h1>' +
+            '<p>Report_Entry:' + Textarea + '</p>';
+         // create a new pdf using the form element
+         html2pdf().from(element).save();
+      }
+  
+</script>
+
+
+
+
+
+<script>
+// functions to generate Crime Reference Number
+function getCatagory(Catagory){
+  return (Catagory[0] + Catagory[1] + Catagory[2]).toUpperCase()
+}
+function getType(Type){
+  return (Type[0] + Type[1] + Type[2]).toUpperCase()
+}
+function getTime(ReportTime){
+  return (ReportTime[2] + ReportTime[3] + ReportTime[6] + ReportTime[7])
+}
+function getLocation(Location){
+  return (Location[0] + Location[1] + Location[2]).toUpperCase()
+}
+function getPostCode(PostCode){
+  return (PostCode[0] + PostCode[1] + PostCode[2]).toUpperCase()
+}
+
+function makeCrimeRefNumber(Catagory,Type,ReportTime,Location,PostCode){
+  return  getCatagory(Catagory) + getType(Type) + getTime(ReportTime) + getLocation(Location) + getPostCode(PostCode) 
+}
+var sequenceNumber = 1
+function gatherDataAndOutput(){
+ var Catagory = document.getElementById("Catagory").value
+ var Type = document.getElementById("Type").value
+ var ReportTime = document.getElementById("ReportTime").value
+ var Location =document.getElementById("Location").value
+ var PostCode = document.getElementById("PostCode").value
+ 
+ var outputElement = document.getElementById("CrimeReference")
+
+ outputElement.value = makeCrimeRefNumber(Catagory,Type,ReportTime,Location,PostCode)
+ 
+}
+
+</script>
+</html>

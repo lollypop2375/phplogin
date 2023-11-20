@@ -1,0 +1,82 @@
+<?php
+session_start();
+if (! isset($_SESSION['loggedin'])){
+    //header ('Location: Crime.html');
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Favicon" type="icon/png" href="./Icons/icons8-police-16.png">
+    <link rel="Stylesheet" href="./Style.css?<?php echo time(); ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- insert font link -->
+</head>
+<body>
+<header>
+<!-- this will be top nav tabs -->
+<div class="topnav" id="myTopnav">
+    <a class="active" href="./IndexPolice.html">Login</a>
+    <a href="./Crime.html">Crime</a>
+    <a href="./MajorIncidents.html">Major Incidents</a>
+    <a href="./LiveAlerts.html">Live Alerts</a>
+  </div>
+<!-- maybe some icons -->
+<!-- possible search depending on page -->
+</header>
+<div class="Main_area">
+    <img src="./Icons/icons8-police-120.png" alt="Police Badge Icon" class="IconReg">
+    <!-- insert form here -->
+    <form action="./authenticate.php" method="post" id="Action-Form">
+    <label for="Username" id="Username"> Username:</label><br><br>
+    <input type="text" id="Username" name="Username" placeholder="Username..."><br><br> 
+    <label for="Password" id="Password_Label">Password:</label><br><br>
+    <input type="password" id="Password_Input" name="Password" placeholder="Password..."><br><br> 
+    <div id="Login">
+        <!-- link to account page when logged in -->
+        <?php if(isset($_GET['pageReturn'])): ?>
+        <input type="hidden" name="pageReturn" value="<?=$_GET['pageReturn']?>">
+        <?php endif ?>
+        <a href="./IndexPolice.html">
+        <input type="submit" id="Submit-Login" value="Submit">
+        </a>
+        <br><br>
+        </div>
+   </form>
+
+
+
+</div>
+<div class="Nav_Icons">
+    <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-back-100.png" style="width:50px">
+     </a>
+     
+     <a href="./Logout.php">
+        <img src="./Icons/icons8-logout-100.png" style="width:50px">
+       </a>
+     <a href="./IndexPolice.html">
+      <img src="./Icons/icons8-forward-100.png" style="width:50px">
+     </a>
+     <!-- <a href="./Logout.php"> -->
+      <!-- <img src="./LOGO/icons8-logout-100.png" style="width:50px"> -->
+     <!-- </a> -->
+      <!-- <img src="./LOGO/icons8-forward-100.png" style="width:50px"> -->
+   </div>
+
+<footer>
+
+</footer>
+
+</body>
+
+</html>
